@@ -6,6 +6,11 @@
 
 from copy import copy
 
+class FleuryException(Exception):
+    def __init__(self, message):
+        super(FleuryException, self).__init__(message)
+        self.message = message
+
 class Fleury:
 
     COLOR_WHITE = 'white'
@@ -16,14 +21,41 @@ class Fleury:
         pass
 
     def set_graph(self, graph):
+        """
+        Funckaj przypisuj±ca graf
+        :param graph:
+        :return:
+        """
         self.graph = graph
 
     def run(self):
-        print "Running Fleury algorithm for graph : ", self.graph
-        print self.fleury(self.graph)
+        """
+        Funkcja uruchamiajaca dzia³anie algorytmu
+        :return:
+        """
+        print '** Running Fleury algorithm for graph : ** \n'
+        for v in self.graph:
+            print v, ' => ', self.graph[v]
+        print '\n'
+        output = None
+        try:
+            output = self.fleury(self.graph)
+        except FleuryException as (message):
+            print message
+
+        if output:
+            print '** Found Eulerian Cycle : **\n'
+            for v in output:
+                print v
+        print '\n** DONE **'
 
     def is_connected(self, G):
-        print G
+        """
+        Funkcja sprawdzajaca czy podany graf jest polaczony
+        za pomoca algorytmu BFS
+        :param G: GRAF
+        :return: True / False
+        """
         start_node = list(G)[0]
         color = {}
         iterator = 0;
@@ -39,7 +71,6 @@ class Fleury:
                     S.append(v)
                 color[u] = Fleury.COLOR_BLACK
         return list(color.values()).count(Fleury.COLOR_BLACK) == len(G)
-
 
     def even_degree_nodes(self, G):
         """
@@ -58,7 +89,7 @@ class Fleury:
         Funkcja, ktora sprawdza czy podany graf jest grafem Eulerowskim
         Returns: true / false
         """
-        return (True if graph_len - len(even_degree_odes) <= 2 else False)
+        return (True if graph_len - len(even_degree_odes) == 0 else False)
 
 
     def convert_graph(self, G):
@@ -82,34 +113,33 @@ class Fleury:
         edn = self.even_degree_nodes(G)
         # sprawdzenie, czy graf jest grafem eulerowskim
         if not self.is_eulerian(edn, len(G)):
-            return 'Podany graf nie jest grafem Eulerowskim!'
-        else:
-            g = copy(G)
-            cycle = []
-            # wybieramy dowolny wierzcho³ek w grafie o niezerowym stopniu
-            u = edn[0]
-            while len(self.convert_graph(g)) > 0:
-                current_vertex = u
-                for u in g[current_vertex]:
-                    g[current_vertex].remove(u)
-                    g[u].remove(current_vertex)
-                    # wybieramy krawêd¼, która nie jest mostem
-                    # (przej¶cie przez most oznacza brak mo¿liwo¶ci powrotu do tego wierzcho³ka
-                    # zatem je¶li zosta³y w nim nieodwiedzone krawêdzie, to tych krawêdzi ju¿ by¶my nie odwiedzili
-                    # i cykl Eulera nie zosta³by znaleziony)
-                    bridge = not self.is_connected(g)
-                    if bridge:
-                        # nie ma innego wyboru (krawedz - most)
-                        # zapamiêtujemy tê krawêd¼ na li¶cie lub na stosie
-                        g[current_vertex].append(u)
-                        g[u].append(current_vertex)
-                    else:
-                        break
+            raise FleuryException('Podany graf nie jest grafem Eulerowskim!')
+        g = copy(G)
+        cycle = []
+        # wybieramy dowolny wierzcho³ek w grafie o niezerowym stopniu
+        u = edn[0]
+        while len(self.convert_graph(g)) > 0:
+            current_vertex = u
+            for u in g[current_vertex]:
+                g[current_vertex].remove(u)
+                g[u].remove(current_vertex)
+                # wybieramy krawêd¼, która nie jest mostem
+                # (przej¶cie przez most oznacza brak mo¿liwo¶ci powrotu do tego wierzcho³ka
+                # zatem je¶li zosta³y w nim nieodwiedzone krawêdzie, to tych krawêdzi ju¿ by¶my nie odwiedzili
+                # i cykl Eulera nie zosta³by znaleziony)
+                bridge = not self.is_connected(g)
                 if bridge:
-                    # przechodzimy wybran± krawêdzi± do kolejnego wierzcho³ka grafu
-                    # przebyt± krawêd¼ usuwamy z grafu
-                    g[current_vertex].remove(u)
-                    g[u].remove(current_vertex)
-                    g.pop(current_vertex)
-                cycle.append((current_vertex, u))
+                    # nie ma innego wyboru (krawedz - most)
+                    # zapamiêtujemy tê krawêd¼ na li¶cie lub na stosie
+                    g[current_vertex].append(u)
+                    g[u].append(current_vertex)
+                else:
+                    break
+            if bridge:
+                # przechodzimy wybran± krawêdzi± do kolejnego wierzcho³ka grafu
+                # przebyt± krawêd¼ usuwamy z grafu
+                g[current_vertex].remove(u)
+                g[u].remove(current_vertex)
+                g.pop(current_vertex)
+            cycle.append((current_vertex, u))
         return cycle
