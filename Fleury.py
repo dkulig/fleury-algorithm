@@ -4,7 +4,7 @@
 # Dawid Kulig
 # dawid.kulig[at]uj.edu.pl
 
-from copy import copy
+import copy
 
 class FleuryException(Exception):
     def __init__(self, message):
@@ -17,10 +17,7 @@ class Fleury:
     COLOR_GRAY  = 'gray'
     COLOR_BLACK = 'black'
 
-    def __init__(self):
-        pass
-
-    def set_graph(self, graph):
+    def __init__(self, graph):
         """
         Funckaj przypisuj±ca graf
         :param graph:
@@ -114,7 +111,7 @@ class Fleury:
         # sprawdzenie, czy graf jest grafem eulerowskim
         if not self.is_eulerian(edn, len(G)):
             raise FleuryException('Podany graf nie jest grafem Eulerowskim!')
-        g = copy(G)
+        g = copy.copy(G)
         cycle = []
         # wybieramy dowolny wierzcho³ek w grafie o niezerowym stopniu
         u = edn[0]
@@ -124,8 +121,10 @@ class Fleury:
                 g[current_vertex].remove(u)
                 g[u].remove(current_vertex)
                 # wybieramy krawêd¼, która nie jest mostem
-                # (przej¶cie przez most oznacza brak mo¿liwo¶ci powrotu do tego wierzcho³ka
-                # zatem je¶li zosta³y w nim nieodwiedzone krawêdzie, to tych krawêdzi ju¿ by¶my nie odwiedzili
+                # (przej¶cie przez most oznacza brak mo¿liwo¶ci powrotu
+                # do tego wierzcho³ka
+                # zatem je¶li zosta³y w nim nieodwiedzone krawêdzie,
+                # to tych krawêdzi ju¿ by¶my nie odwiedzili
                 # i cykl Eulera nie zosta³by znaleziony)
                 bridge = not self.is_connected(g)
                 if bridge:

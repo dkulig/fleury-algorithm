@@ -17,6 +17,5 @@ from Fleury import *
 
 G = {0: [4, 5], 1: [2, 3, 4, 5], 2: [1, 3, 4, 5], 3: [1, 2], 4: [0, 1, 2, 5], 5: [0, 1, 2, 4]}
 
-test = Fleury();
-test.set_graph(G);
-test.run();
+test = Fleury(G)
+test.run()
