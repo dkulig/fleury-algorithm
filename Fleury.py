@@ -49,7 +49,7 @@ class Fleury:
     def is_connected(self, G):
         """
         Funkcja sprawdzajaca czy podany graf jest polaczony
-        za pomoca algorytmu BFS
+        za pomoca algorytmu DFS ze stosem
         :param G: GRAF
         :return: True / False
         """
@@ -83,10 +83,10 @@ class Fleury:
 
     def is_eulerian(self, even_degree_odes, graph_len):
         """
-        Funkcja, ktora sprawdza czy podany graf jest grafem Eulerowskim
+        Sprawdzenie czy podany graf nieskierowany jest grafem Eulerowskim
         Returns: true / false
         """
-        return (True if graph_len - len(even_degree_odes) == 0 else False)
+        return graph_len - len(even_degree_odes) == 0
 
 
     def convert_graph(self, G):
@@ -117,7 +117,8 @@ class Fleury:
         u = edn[0]
         while len(self.convert_graph(g)) > 0:
             current_vertex = u
-            for u in g[current_vertex]:
+            #for u in g[current_vertex]: # NIEDOBRE, BO ZMIENIA SIE W PETLI
+            for u in list(g[current_vertex]): # OSOBNA KOPIA
                 g[current_vertex].remove(u)
                 g[u].remove(current_vertex)
                 # wybieramy krawêd¼, która nie jest mostem
