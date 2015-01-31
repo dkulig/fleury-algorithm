@@ -10,9 +10,6 @@ Do zrobienia:
 
 1. Dokumentacja.
 
-2. Brak testow z unittest.
-
-
 Author
 ------
 

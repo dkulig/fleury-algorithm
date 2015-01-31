@@ -6,6 +6,11 @@
 # dawid.kulig[at]uj.edu.pl
 
 from Fleury import *
+from tests import *
+
+
+# Uruchomienie unit-testow
+# runTests()
 
 #G = {0: [2, 2, 3], 1: [2, 2, 3], 2: [0, 0, 1, 1, 3], 3: [0, 1, 2]}
 

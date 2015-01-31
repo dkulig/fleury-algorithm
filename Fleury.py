@@ -23,6 +23,7 @@ class Fleury:
         :param graph:
         :return:
         """
+
         self.graph = graph
 
     def run(self):
@@ -30,6 +31,7 @@ class Fleury:
         Funkcja uruchamiajaca dzia³anie algorytmu
         :return:
         """
+
         print '** Running Fleury algorithm for graph : ** \n'
         for v in self.graph:
             print v, ' => ', self.graph[v]
@@ -53,6 +55,7 @@ class Fleury:
         :param G: GRAF
         :return: True / False
         """
+
         start_node = list(G)[0]
         color = {}
         iterator = 0;
@@ -74,6 +77,7 @@ class Fleury:
         Funkcja, ktora liczbe nieparzystych krawedzi w grafie
         Returns: lista nieparzystych krawedzi w grafie
         """
+
         even_degree_nodes = []
         for u in G:
             if len(G[u]) % 2 == 0:
@@ -86,6 +90,7 @@ class Fleury:
         Sprawdzenie czy podany graf nieskierowany jest grafem Eulerowskim
         Returns: true / false
         """
+
         return graph_len - len(even_degree_odes) == 0
 
 
@@ -95,6 +100,7 @@ class Fleury:
         Przkladowe dane wejsciowe {0: [4, 5], 1: [2, 3, 4, 5]}
         Returns: [(0, 4), (0, 5), (1, 2), (1, 3), (1, 4), (1, 5)]
         """
+
         links = []
         for u in G:
             for v in G[u]:
@@ -107,6 +113,7 @@ class Fleury:
         Funkcja znajdujaca cykl eulerowski w podanym grafie
         Returns: lista krawedzi (cykl eulerowski)
         """
+
         edn = self.even_degree_nodes(G)
         # sprawdzenie, czy graf jest grafem eulerowskim
         if not self.is_eulerian(edn, len(G)):
