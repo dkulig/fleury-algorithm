@@ -150,3 +150,4 @@ class Fleury:
                 g.pop(current_vertex)
             cycle.append((current_vertex, u))
         return cycle
+

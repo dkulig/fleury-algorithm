@@ -75,5 +75,4 @@ def runTests():
     """
     Uruchomienie testow
     """
-
     unittest.main()
