@@ -6,10 +6,6 @@ Description
 
 Python implementation of Fleury's Algorithm.
 
-Do zrobienia:
-
-1. Dokumentacja.
-
 Author
 ------
 

@@ -74,7 +74,7 @@ class Fleury:
 
     def even_degree_nodes(self, G):
         """
-        Funkcja, ktora liczbe nieparzystych krawedzi w grafie
+        Funkcja, ktora liczbe parzystych krawedzi w grafie
         Returns: lista nieparzystych krawedzi w grafie
         """
 
