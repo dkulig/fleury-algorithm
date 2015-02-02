@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: iso-8859-2 -*-
 #
 # Fleury's Algorithm implementation
@@ -14,12 +15,13 @@ class TestFleury(unittest.TestCase):
         Przygotowanie testow
         """
 
-        G = {0: [4, 5], 1: [2, 3, 4, 5], 2: [1, 3, 4, 5], 3: [1, 2], 4: [0, 1, 2, 5], 5: [0, 1, 2, 4]}
-        self.graph_a = G
-        G = {0: [2, 2, 3], 1: [2, 2, 3], 2: [0, 0, 1, 3], 3: [0, 1, 2]}
-        self.graph_b = G
+        self.graph_a = {0: [4, 5], 1: [2, 3, 4, 5], 2: [1, 3, 4, 5], 
+            3: [1, 2], 4: [0, 1, 2, 5], 5: [0, 1, 2, 4]}
+        self.graph_b = {0: [2, 2, 3], 1: [2, 2, 3], 2: [0, 0, 1, 3], 
+            3: [0, 1, 2]}
 
-    def testEven_degree_nodes(self):
+
+    def test_even_degree_nodes(self):
         """
         Testowanie funkcji zwracajacej liste krawedzi parzystych
         """
@@ -36,7 +38,7 @@ class TestFleury(unittest.TestCase):
         self.assertTrue(list_b_expected == list_b_result)
         self.assertTrue(list_a_expected == list_a_result)
 
-    def testIs_eulerian(self):
+    def test_is_eulerian(self):
         """
         Testowanie funkcji sprawdzajacej czy graf jest EULEROWSKI
         """
@@ -46,7 +48,7 @@ class TestFleury(unittest.TestCase):
         self.assertTrue(fl_a.is_eulerian(fl_a.even_degree_nodes(self.graph_a), len(self.graph_a)))
         self.assertFalse(fl_b.is_eulerian(fl_b.even_degree_nodes(self.graph_b), len(self.graph_b)))
 
-    def testIs_connected(self):
+    def test_is_connected(self):
         """
         Testowanie algorytmu DFS
         """
@@ -54,7 +56,7 @@ class TestFleury(unittest.TestCase):
         fl_a = Fleury(self.graph_a)
         self.assertTrue(fl_a.is_connected(self.graph_b))
 
-    def testConvert_graph(self):
+    def test_convert_graph(self):
         """
         Testowanie konwersji grafu na liste
         """

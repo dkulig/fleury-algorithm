@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: iso-8859-2 -*-
 #
 # Fleury's Algorithm implementation
@@ -50,7 +51,7 @@ class Fleury:
 
     def is_connected(self, G):
         """
-        Funkcja sprawdzajaca czy podany graf jest polaczony
+        Funkcja sprawdzajaca czy podany graf jest spojny
         za pomoca algorytmu DFS ze stosem
         :param G: GRAF
         :return: True / False
@@ -74,8 +75,8 @@ class Fleury:
 
     def even_degree_nodes(self, G):
         """
-        Funkcja, ktora liczbe parzystych krawedzi w grafie
-        Returns: lista nieparzystych krawedzi w grafie
+        Funkcja, ktora zwraca liczbe parzystych wierzcholkow w grafie
+        Returns: lista parzystych wierzcholkow w grafie
         """
 
         even_degree_nodes = []
