@@ -4,6 +4,7 @@
 # Fleury's Algorithm implementation
 # Dawid Kulig
 # dawid.kulig[at]uj.edu.pl
+# 0.1
 
 from Fleury import *
 from tests import *
